@@ -102,3 +102,7 @@ Route::get('/pegawai/cari','App\Http\Controllers\PegawaiDBController@cari');
 use App\Http\Controllers\CRUDPegawaiController;
 
 Route::resource('hewan', CRUDPegawaiController::class);
+
+use App\Http\Controllers\PageCounterController;
+
+Route::get('/pagecounter', [PageCounterController::class, 'index']);
