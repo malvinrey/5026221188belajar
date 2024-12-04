@@ -9,13 +9,32 @@ class PageCounterController extends Controller
 {
     public function index()
     {
-        // Update the counter
-        DB::table('pagecounter')->increment('jumlah');
+        // Get the last record to determine the current ID and Jumlah
+        $lastCounter = DB::table('pagecounter')->orderBy('id', 'desc')->first();
 
-        // Get the updated count
-        $jumlah = DB::table('pagecounter')->first()->jumlah;
+        // If no records exist (very first run), initialize with ID 1
+        if (!$lastCounter) {
+            DB::table('pagecounter')->insert([
+                'id' => 1,
+                'jumlah' => 0
+            ]);
+            $lastCounter = (object) ['id' => 1, 'jumlah' => 0];
+        }
 
-        // Return the view with the count
-        return view('pagecounter.index', compact('jumlah'));
+        // Prepare the next ID and increment the jumlah
+        $nextId = $lastCounter->id + 1;
+        $nextJumlah = $lastCounter->jumlah + 1;
+
+        // Insert the new record with the nextId and nextJumlah
+        DB::table('pagecounter')->insert([
+            'id' => $nextId,
+            'jumlah' => $nextJumlah
+        ]);
+
+        // Send the new ID and Jumlah to the view
+        return view('pagecounter.index', [
+            'id' => $nextId,        // ID of the latest visitor
+            'jumlah' => $nextJumlah  // Updated Jumlah of visitors
+        ]);
     }
 }

@@ -14,10 +14,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Main Page
-Route::get('/', function () {
+/* Main Page
+//Route::get('/', function () {
     return view('index');
-});
+});*/
 
 // Existing routes for the form
 Route::get('/formulir', 'App\Http\Controllers\PegawaiController@formulir');
@@ -105,4 +105,4 @@ Route::resource('hewan', CRUDPegawaiController::class);
 
 use App\Http\Controllers\PageCounterController;
 
-Route::get('/pagecounter', [PageCounterController::class, 'index']);
+Route::get('/', [PageCounterController::class, 'index']);
