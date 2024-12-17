@@ -103,6 +103,10 @@ use App\Http\Controllers\CRUDPegawaiController;
 
 Route::resource('hewan', CRUDPegawaiController::class);
 
-use App\Http\Controllers\PageCounterController;
+//use App\Http\Controllers\PageCounterController;
 
-Route::get('/', [PageCounterController::class, 'index']);
+//Route::get('/PageCounter', [PageCounterController::class, 'index']);
+
+use App\Http\Controllers\PageCounterControllerBelajar;
+
+Route::get('/', [PageCounterControllerBelajar::class, 'showCounter']);
